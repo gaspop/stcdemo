@@ -6,39 +6,17 @@ import {
   View,
 } from 'react-native'
 
-import { faded, gray, white } from '../style/colors'
+import { faded, white } from '../style/colors'
 
-const ClubListItem = ({ address, name, onPress }) => {
+const ClubListItem = ({ name, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
-        <Text numberOfLines={1} style={styles.name}>
-          {name || 'Namn saknas'}
-        </Text>
-        {hasAddress(address) && (
-          <>
-            <View style={styles.addressContainer}>
-              <Text style={styles.address}>
-                {address.street}
-              </Text>
-              <Text style={styles.address}>
-                <Text>{address.postalCode} </Text>
-                <Text>{address.city}</Text>
-              </Text>
-            </View>
-          </>
-        )}
+        <Text style={styles.name}>{name}</Text>
       </View>
     </TouchableOpacity>
   )
 }
-
-const hasAddress = address =>
-  !!(
-    address?.city ||
-    address?.postalCode ||
-    address?.street
-  )
 
 const styles = StyleSheet.create({
   container: {
@@ -51,12 +29,6 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 16,
     fontWeight: 'bold',
-  },
-  addressContainer: {
-    marginTop: 8,
-  },
-  address: {
-    color: gray,
   },
 })
 

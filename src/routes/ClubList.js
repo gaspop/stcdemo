@@ -1,8 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useState,
-} from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 
 import ClubListItem from '../components/ClubListItem'
@@ -37,20 +33,16 @@ const ClubList = ({ navigation }) => {
     }
   }, [])
 
-  const goToClub = id => {
-    if (!id) {
+  const goToClub = club => {
+    if (!club?.id) {
       return
     }
 
-    navigation.navigate(CLUB, { id })
+    navigation.navigate(CLUB, { club })
   }
 
   const renderClub = item => (
-    <ClubListItem
-      address={item?.address}
-      name={item?.name}
-      onPress={() => goToClub(item?.id)}
-    />
+    <ClubListItem name={item?.name} onPress={() => goToClub(item)} />
   )
 
   useEffect(() => {

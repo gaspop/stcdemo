@@ -12,7 +12,11 @@ const Placeholder = ({ loading, errorText, text }) => {
   return (
     <View style={styles.container}>
       {loading && (
-        <ActivityIndicator color={black} size={'large'} />
+        <ActivityIndicator
+          animating={true}
+          color={black}
+          size={'small'}
+        />
       )}
       {!loading && errorText && (
         <Text style={styles.errorText}>{errorText}</Text>
