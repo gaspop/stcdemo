@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { SectionList, StyleSheet, Text, View } from 'react-native'
+import { RefreshControl, SectionList, StyleSheet, Text, View } from 'react-native'
 import { addDays, endOfDay, format, isAfter } from 'date-fns'
 import { sv } from 'date-fns/locale'
 
@@ -15,6 +15,7 @@ const Club = ({ route }) => {
   const [data, setData] = useState([])
   const [hasError, setHasError] = useState(false)
   const [isLoading, setLoading] = useState(false)
+  const [isRefreshing, setRefreshing] = useState(false)
   const [sections, setSections] = useState([])
 
   const handleLayout = ({ nativeEvent }) =>
@@ -45,6 +46,12 @@ const Club = ({ route }) => {
       setLoading(false)
     }
   }, [club])
+
+  const refreshGroupActivities = async () => {
+    setRefreshing(true)
+    await getGroupActivities()
+    setRefreshing(false)
+  }
 
   const renderDate = date => (
     <View style={styles.dateContainer}>
@@ -83,16 +90,22 @@ const Club = ({ route }) => {
       <SectionList
         contentContainerStyle={listContentStyle}
         sections={sections}
-        ListEmptyComponent={() => (
+        ListEmptyComponent={
           <Placeholder
             errorText={hasError && 'Kunde inte hämta data'}
             loading={isLoading}
             text={`Hittade inga pass för ${club.name}`}
           />
-        )}
-        ListHeaderComponent={() => (
+        }
+        ListHeaderComponent={
           <ClubDetails address={club?.address} name={club?.name} />
-        )}
+        }
+        refreshControl={
+          <RefreshControl
+            onRefresh={refreshGroupActivities}
+            refreshing={isRefreshing}
+          />
+        }
         renderItem={({ item }) => renderActivity(item)}
         renderSectionHeader={({ section }) => renderDate(section.key)}
         showsVerticalScrollIndicator={false}
