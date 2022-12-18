@@ -8,16 +8,16 @@ import {
 
 import { black } from '../style/colors'
 
-const Placeholder = ({ loading, error, text }) => {
+const Placeholder = ({ loading, errorText, text }) => {
   return (
     <View style={styles.container}>
       {loading && (
         <ActivityIndicator color={black} size={'large'} />
       )}
-      {!loading && error && (
-        <Text style={styles.error}>{error}</Text>
+      {!loading && errorText && (
+        <Text style={styles.errorText}>{errorText}</Text>
       )}
-      {!loading && !error && (
+      {!loading && !errorText && (
         <Text style={styles.text}>{text}</Text>
       )}
     </View>
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 48,
   },
-  error: {
+  errorText: {
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
