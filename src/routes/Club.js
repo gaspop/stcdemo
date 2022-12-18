@@ -1,13 +1,19 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { RefreshControl, SectionList, StyleSheet, Text, View } from 'react-native'
+import {
+  RefreshControl,
+  SectionList,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 import { addDays, endOfDay, format, isAfter } from 'date-fns'
 import { sv } from 'date-fns/locale'
 
+import ActivityListItem from '../components/ActivityListItem'
+import ClubDetails from '../components/ClubDetails'
 import Placeholder from '../components/Placeholder'
 import Api from '../services/api'
 import { faded, white } from '../style/colors'
-import ClubDetails from '../components/ClubDetails'
-import ActivityListItem from '../components/ActivityListItem'
 
 const Club = ({ route }) => {
   const [club] = useState(route.params?.club)
@@ -90,6 +96,7 @@ const Club = ({ route }) => {
       <SectionList
         contentContainerStyle={listContentStyle}
         sections={sections}
+        keyExtractor={item => item.id}
         ListEmptyComponent={
           <Placeholder
             errorText={hasError && 'Kunde inte hämta data'}
@@ -109,6 +116,7 @@ const Club = ({ route }) => {
         renderItem={({ item }) => renderActivity(item)}
         renderSectionHeader={({ section }) => renderDate(section.key)}
         showsVerticalScrollIndicator={false}
+        stickySectionHeadersEnabled={true}
         style={styles.listContainer}
       />
     </View>
