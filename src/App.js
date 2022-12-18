@@ -9,7 +9,7 @@ const App = () => {
     <>
       <StatusBar
         backgroundColor={'black'}
-        barStyle={'dark-content'}
+        barStyle={'light-content'}
       />
       <NavigationContainer>
         <AppNavigator />
