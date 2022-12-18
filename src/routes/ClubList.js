@@ -5,11 +5,12 @@ import React, {
 } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 
-import ClubItem from '../components/ClubItem'
+import ClubListItem from '../components/ClubListItem'
 import Placeholder from '../components/Placeholder'
+import { CLUB } from '../navigation/constants'
 import Api from '../services/api'
 
-const ClubList = () => {
+const ClubList = ({ navigation }) => {
   const [contentHeight, setContentHeight] = useState()
   const [data, setData] = useState()
   const [hasError, setHasError] = useState(false)
@@ -36,8 +37,20 @@ const ClubList = () => {
     }
   }, [])
 
+  const goToClub = id => {
+    if (!id) {
+      return
+    }
+
+    navigation.navigate(CLUB, { id })
+  }
+
   const renderClub = item => (
-    <ClubItem address={item?.address} name={item?.name} />
+    <ClubListItem
+      address={item?.address}
+      name={item?.name}
+      onPress={() => goToClub(item?.id)}
+    />
   )
 
   useEffect(() => {
