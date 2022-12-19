@@ -15,7 +15,7 @@ To run from Xcode open .workspace file ios directory
 
 # How to run on Android
 
-Requires configuring Android Studio and SDK configuration with shell.
+Requires Android Studio (and linking SDK to shell to run from terminal).
 
 1. Run 'npx react-native run-android' from root direction.
 
