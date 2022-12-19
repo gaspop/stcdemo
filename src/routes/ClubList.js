@@ -76,7 +76,7 @@ const ClubList = ({ navigation }) => {
         bounces={false}
         contentContainerStyle={listContentStyle}
         data={filteredData}
-        // keyExtractor={item => item.id}
+        keyExtractor={item => item.id}
         ListEmptyComponent={
           <Placeholder
             errorText={hasError && 'Kunde inte hämta data'}
